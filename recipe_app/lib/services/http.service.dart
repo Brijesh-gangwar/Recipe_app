@@ -14,6 +14,9 @@ class http_serivce {
 
   Future<void> setup({String? bearertoken}) async {
     final headers = {"Content-Type": "application/json"};
+    if (bearertoken != null) {
+      headers['Authorisation'] = "Bearer $bearertoken";
+    }
     final options = BaseOptions(
       baseUrl: api_url,
       headers: headers,
@@ -28,6 +31,15 @@ class http_serivce {
   Future<Response?> post(String path, Map data) async {
     try {
       final response = await dio.post(path, data: data);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<Response?> get(String path) async {
+    try {
+      final response = await dio.get(path);
       return response;
     } catch (e) {
       print(e);

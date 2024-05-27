@@ -79,6 +79,7 @@ class _login_screenState extends State<login_screen> {
                   print(result);
 
                   if (result) {
+                    Navigator.pushNamed(context, "/home");
                   } else {
                     StatusAlert.show(context,
                         duration: Duration(seconds: 2),
