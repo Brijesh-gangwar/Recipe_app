@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:dio/dio.dart';
 import 'package:recipe_app/services/auth_service.dart';
 import 'package:status_alert/status_alert.dart';
 
@@ -22,7 +21,7 @@ class _login_screenState extends State<login_screen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Login"),
+          title: const Text("Login"),
         ),
         body: Column(
           children: [
@@ -33,7 +32,7 @@ class _login_screenState extends State<login_screen> {
                 children: [
                   TextFormField(
                     initialValue: 'emilys',
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "usesrname",
                     ),
                     validator: (value) {
@@ -50,7 +49,7 @@ class _login_screenState extends State<login_screen> {
                   TextFormField(
                     initialValue: 'emilyspass',
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "password",
                     ),
                     validator: (value) {
@@ -91,7 +90,7 @@ class _login_screenState extends State<login_screen> {
                   }
                 }
               },
-              child: Text("submit"),
+              child: const Text("submit"),
             )
           ],
         ),
@@ -101,7 +100,7 @@ class _login_screenState extends State<login_screen> {
 }
 
 Widget build_title() {
-  return Center(
-    child: Text("recipe book"),
+  return const Center(
+    child: Text("Recipe Book"),
   );
 }

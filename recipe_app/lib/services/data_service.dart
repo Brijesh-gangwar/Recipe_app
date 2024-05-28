@@ -1,5 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:recipe_app/constants.dart';
+
 import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/services/http.service.dart';
 

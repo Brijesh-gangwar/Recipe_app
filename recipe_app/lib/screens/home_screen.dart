@@ -12,7 +12,8 @@ class home_screeen extends StatefulWidget {
 
 class _home_screeenState extends State<home_screeen> {
   String mealtype_filter = "";
-  List<String> chips_data = [];
+
+ List<String> chips_data = [];
 
   final chips_meal_type = "";
   @override
@@ -157,10 +158,10 @@ class _home_screeenState extends State<home_screeen> {
                         ));
                       },
                       subtitle: Text(
-                          "${recipe.cuisine}\n Difficulty: ${recipe.difficulty}"),
+                          "${recipe.cuisine}\n Difficulty : ${recipe.difficulty.name}"),
                       title: Text(recipe.name),
                       leading: Image.network(recipe.image),
-                      trailing: Text("${recipe.rating.toString()} *"),
+                      trailing: Text("${recipe.rating.toString()} ⭐"),
                     ),
                   );
                 },
