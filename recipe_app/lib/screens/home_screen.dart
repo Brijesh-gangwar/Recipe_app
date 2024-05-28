@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/models/recipe.dart';
+import 'package:recipe_app/screens/recipe_page.dart';
 import 'package:recipe_app/services/data_service.dart';
 
 class home_screeen extends StatefulWidget {
@@ -10,6 +11,10 @@ class home_screeen extends StatefulWidget {
 }
 
 class _home_screeenState extends State<home_screeen> {
+  String mealtype_filter = "";
+  List<String> chips_data = [];
+
+  final chips_meal_type = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +26,8 @@ class _home_screeenState extends State<home_screeen> {
   }
 
   Widget build_ui() {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           recipe_type_buttons(),
@@ -39,20 +45,84 @@ class _home_screeenState extends State<home_screeen> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: FilledButton(onPressed: () {}, child: const Text("Snack")),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "";
+                  });
+                },
+                child: const Text("All")),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child:
-                FilledButton(onPressed: () {}, child: const Text("breakfast")),
+            child: FilledButton(
+              onPressed: () {
+                setState(() {
+                  mealtype_filter = "Snacks";
+                });
+              },
+              child: const Text("Snacks"),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: FilledButton(onPressed: () {}, child: const Text("lunch")),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Breakfast";
+                  });
+                },
+                child: const Text("Breakfast")),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: FilledButton(onPressed: () {}, child: const Text("dinner")),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Lunch";
+                  });
+                },
+                child: const Text("Lunch")),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Dinner";
+                  });
+                },
+                child: const Text("Dinner")),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Beverage";
+                  });
+                },
+                child: const Text("Beverage")),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Side Dish";
+                  });
+                },
+                child: const Text("Side Dish")),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: FilledButton(
+                onPressed: () {
+                  setState(() {
+                    mealtype_filter = "Dessert";
+                  });
+                },
+                child: const Text("Dessert")),
           ),
         ],
       ),
@@ -62,7 +132,7 @@ class _home_screeenState extends State<home_screeen> {
   Widget recipe_list() {
     return Expanded(
         child: FutureBuilder(
-            future: dataservice().getrecipes(),
+            future: dataservice().getrecipes(mealtype_filter),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
@@ -73,13 +143,24 @@ class _home_screeenState extends State<home_screeen> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      children: [
-                        Text(snapshot.data![index].id.toString()),
-                        Text(snapshot.data![index].name.toString()),
-                        Text(snapshot.data![index].ingredients.toString()),
-                      ],
+                  RecipeElement recipe = snapshot.data![index];
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return recipe_page(
+                              recipe: recipe,
+                            );
+                          },
+                        ));
+                      },
+                      subtitle: Text(
+                          "${recipe.cuisine}\n Difficulty: ${recipe.difficulty}"),
+                      title: Text(recipe.name),
+                      leading: Image.network(recipe.image),
+                      trailing: Text("${recipe.rating.toString()} *"),
                     ),
                   );
                 },

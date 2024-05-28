@@ -13,8 +13,12 @@ class dataservice {
 
   dataservice._internal();
 
-  Future<List<RecipeElement>?> getrecipes() async {
+  Future<List<RecipeElement>?> getrecipes(String filter) async {
     var path = 'https://dummyjson.com/recipes';
+
+    if (filter.isNotEmpty) {
+      path += '/meal-type/$filter';
+    }
 
     final response = await httpserivce.get(path);
     print(response!.statusCode);
